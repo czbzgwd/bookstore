@@ -2,6 +2,8 @@ package com.atguigu.bookstore.servlet;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,7 @@ import com.atguigu.bookstore.service.BookService;
 import com.atguigu.bookstore.web.BookStoreWebUtils;
 import com.atguigu.bookstore.web.CriteriaBook;
 import com.atguigu.bookstore.web.Page;
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class BookServlet
@@ -78,6 +81,35 @@ public class BookServlet extends HttpServlet {
 		
 		request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
 		
+	}
+	//修改购物车中商品的数量
+	protected void updateItemQuantity(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		//4、在updateItemQuantity方法中，获取quantity、id,再获取购物车对象，调用service的方法修改
+		String idStr = request.getParameter("id");
+		String quantityStr = request.getParameter("quantity");
+		ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
+		int id = -1;
+		int quantity = -1;
+		//一般获取的两个参数不放在一起，但是本方法中如果id出异常，那么quantity也没必要修改了，所以要放在一起。
+		//位置：10. 尚硅谷_佟刚_JavaWEB案例_Ajax修改购物车单品数量 16分35秒
+		try {
+			id = Integer.parseInt(idStr);
+			quantity = Integer.parseInt(quantityStr);
+		} catch (Exception e) {}
+		
+		if(id > 0 && quantity > 0){
+		    bookService.updateItemQuantity(sc,id,quantity);
+		}
+    	//5、传回Json数据：bookNumber 、totalMoney	
+		Map<String,Object> result = new HashMap<>();
+		result.put("bookNumber", sc.getBookNumber());
+		result.put("totalMoney", sc.getTotalMoney());
+		
+		Gson gson = new Gson();
+		String jsonStr = gson.toJson(result);
+		response.setContentType("text/javascript");
+		response.getWriter().print(jsonStr);
 	}
 	//清空购物车
 	protected void clear(HttpServletRequest request, HttpServletResponse response)

@@ -37,4 +37,8 @@ private ShoppingCart sc = new ShoppingCart();
 		
 		sc.removeItem(id);
 	}
+	public void updateItemQuantity(ShoppingCart sc, int id, int quantity) {
+		sc.updateItemQuantity(id, quantity);
+		
+	}
 }
