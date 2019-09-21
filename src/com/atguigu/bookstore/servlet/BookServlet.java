@@ -54,7 +54,28 @@ public class BookServlet extends HttpServlet {
 
 	}
 	
-
+    //获取书的详细信息
+	protected void getBook(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String idStr = request.getParameter("id");
+		int id = -1;
+		Book book = null;
+		try {
+			id = Integer.parseInt(idStr);
+		} catch (NumberFormatException e) {}
+		
+		if(id > 0)
+		 book = bookService.getBook(id);
+		
+		//如果该书不存在
+		if(book == null){
+			response.sendRedirect(request.getContextPath() + "/error-1.jsp");
+			return;
+		}
+		request.setAttribute("book",book);
+		request.getRequestDispatcher("WEB-INF/pages/book.jsp").forward(request, response);
+		
+	}
 	protected void getBooks(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 1、获取三个请求参数

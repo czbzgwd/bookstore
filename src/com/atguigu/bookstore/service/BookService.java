@@ -13,4 +13,7 @@ private BookDAO bookDAO = new BookDAOImpl();
 	public Page<Book> getPage(CriteriaBook criteriaBook){
 		return bookDAO.getPage(criteriaBook);
 	}
+	public Book getBook(int id){
+		return bookDAO.getBook(id);
+	}
 }

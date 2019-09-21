@@ -3,19 +3,14 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+	
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="script/jquery-1.7.2.min.js"></script>
 <script type="text/javascript">
     $(function(){
-    	$("a").click(function(){
-    		//??
-    		var serializeVal = $(":hidden").serialize();
-    		var href = this.href + "&" + serializeVal;
-    		window.location.href = href;
-    		return false;
-    	})
+    	
     	$("#pageNo").change(function(){
 			var val = $(this).val();
 			val = $.trim(val);
@@ -44,10 +39,10 @@
 
 
 </script>
+<%@ include file = "/commons/queryCondition.jsp" %>
 </head>
 <body>
-    <input type = "hidden" name = "minPrice" value = "${param.minPrice }" />
-    <input type = "hidden" name = "maxPrice" value = "${param.maxPrice }" />
+    
 
 	<center>
 		<br>
@@ -69,7 +64,7 @@
 		<table cellpadding="10">
 			<c:forEach items="${bookpage.list }" var="book">
 				<tr>
-					<td><a href="">${book.title }</a>
+					<td><a href="bookServlet?method=getBook&pageNo=${bookpage.pageNo }&id=${book.id}">${book.title }</a>
 					<br>
 					${book.author}
 					</td>
