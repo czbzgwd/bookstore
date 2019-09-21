@@ -66,6 +66,7 @@ private ShoppingCart sc = new ShoppingCart();
 	public void cash(ShoppingCart shoppingCart, String username, String accountId) {
 	    //1、更新数据表mybooks相关的salesamount和storenumber
 		bookDAO.batchUpdateStoreNumberAndSalesAmount(shoppingCart.getItems());
+		//int i = 10/0;
 		//2、更新account数据表的balance
 		accountDAO.updateBalance(Integer.parseInt(accountId), shoppingCart.getTotalMoney());
 		//3、向trade数据表中插入一条数据

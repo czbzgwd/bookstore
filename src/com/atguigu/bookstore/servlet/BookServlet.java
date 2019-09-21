@@ -59,7 +59,7 @@ public class BookServlet extends HttpServlet {
 			method.invoke(this, request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			/* throw new RuntimeException(e); */
+			throw new RuntimeException(e); //位于视频14Filter&ThreadLocal实现处理事务
 		}
 
 	}

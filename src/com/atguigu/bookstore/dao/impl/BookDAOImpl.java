@@ -28,7 +28,7 @@ public class BookDAOImpl extends BaseDAO<Book> implements BookDAO {
 		page.setTotalItemNumber(getTotalBookNumber(cb));
 		// 校验pageNo的合法性☆
 		cb.setPageNo(page.getPageNo());
-		page.setList(getPageList(cb, 4));
+		page.setList(getPageList(cb, 3));
 		return page;
 	}
 

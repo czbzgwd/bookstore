@@ -1,5 +1,6 @@
 package com.atguigu.bookstore.test;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -8,8 +9,10 @@ import org.junit.Test;
 
 import com.atguigu.bookstore.dao.BookDAO;
 import com.atguigu.bookstore.dao.impl.BookDAOImpl;
+import com.atguigu.bookstore.db.JDBCUtils;
 import com.atguigu.bookstore.domain.Book;
 import com.atguigu.bookstore.domain.ShoppingCartItem;
+import com.atguigu.bookstore.web.ConnectionContext;
 import com.atguigu.bookstore.web.CriteriaBook;
 import com.atguigu.bookstore.web.Page;
 
@@ -18,6 +21,11 @@ public class BookDAOTest {
 	private BookDAO bookDAO = new BookDAOImpl();
 	@Test
 	public void testGetBook() {
+		//使用事务之后，单元测试必须加上下面的代码获取连接
+		Connection connection = JDBCUtils.getConnection();
+		ConnectionContext.getInstance().bind(connection);
+		
+		
 		Book book = bookDAO.getBook(5);
 		System.out.println(book); 
 		System.out.println(bookDAO.getBook(1));
