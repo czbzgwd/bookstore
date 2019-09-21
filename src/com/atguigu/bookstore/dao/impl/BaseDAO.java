@@ -15,13 +15,9 @@ import com.atguigu.bookstore.db.JDBCUtils;
 import com.atguigu.bookstore.utils.ReflectionUtils;
 import com.mysql.jdbc.Statement;
 
-/**
- * 2019年1月7日下午2:00:48
- *
- */
 public class BaseDAO<T> implements Dao<T> {
 
-	// 视频03 3'38"
+	// JavaWeb之DBUtils（一）QueryRunner类对数据表的增、删、查（8种结果集处理方式）、改操作
 	private QueryRunner queryRunner = new QueryRunner();
 
 	private Class<T> clazz;
@@ -29,6 +25,7 @@ public class BaseDAO<T> implements Dao<T> {
 	public BaseDAO() {
 		clazz = ReflectionUtils.getSuperGenericType(getClass());
 	}
+
 	@Override
 	public long insert(String sql, Object... args) {
 		long id = 0;
@@ -37,7 +34,7 @@ public class BaseDAO<T> implements Dao<T> {
 		ResultSet resultSet = null;
 		try {
 			connection = JDBCUtils.getConnection();
-			preparedstatement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			preparedstatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			// ?
 			if (args != null) {
 				for (int i = 0; i < args.length; i++) {
@@ -46,13 +43,11 @@ public class BaseDAO<T> implements Dao<T> {
 				}
 			}
 			preparedstatement.executeUpdate();
-			//获取生成的主键
 			resultSet = preparedstatement.getGeneratedKeys();
 			// ?
 			if (resultSet.next()) {
 				id = resultSet.getLong(1);
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -62,12 +57,6 @@ public class BaseDAO<T> implements Dao<T> {
 		return id;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.atguigu.bookstore.dao.Dao#update(java.lang.String,
-	 * java.lang.Object[])
-	 */
 	@Override
 	public void update(String sql, Object... args) {
 		Connection connection = null;
@@ -80,23 +69,17 @@ public class BaseDAO<T> implements Dao<T> {
 		} finally {
 			JDBCUtils.release(connection);
 		}
+
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.atguigu.bookstore.dao.Dao#query(java.lang.String,
-	 * java.lang.Object[])
-	 */
 	@Override
 	public T query(String sql, Object... args) {
-
 		Connection connection = null;
 		try {
+
 			connection = JDBCUtils.getConnection();
 			//??
 			return queryRunner.query(connection, sql, new BeanHandler<>(clazz), args);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -105,12 +88,7 @@ public class BaseDAO<T> implements Dao<T> {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.atguigu.bookstore.dao.Dao#queryForList(java.lang.String,
-	 * java.lang.Object[])
-	 */
+	//?
 	@Override
 	public List<T> queryForList(String sql, Object... args) {
 		Connection connection = null;
@@ -124,15 +102,11 @@ public class BaseDAO<T> implements Dao<T> {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.atguigu.bookstore.dao.Dao#getSingleVal(java.lang.String,
-	 * java.lang.Object[])
-	 */
+	//获取某一个值
+	//?
 	@Override
 	public <V> V getSingleVal(String sql, Object... args) {
-Connection connection = null;
+		Connection connection = null;
 		
 		try {
 			connection = JDBCUtils.getConnection();
@@ -143,22 +117,19 @@ Connection connection = null;
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.atguigu.bookstore.dao.Dao#batch(java.lang.String,
-	 * java.lang.Object[][])
-	 */
+	//批量
+	//?
 	@Override
 	public void batch(String sql, Object[]... params) {
 		Connection connection = null;
+		
 		try {
 			connection = JDBCUtils.getConnection();
 			queryRunner.batch(connection, sql, params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 	}
 
 }
