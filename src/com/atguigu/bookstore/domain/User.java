@@ -5,46 +5,58 @@ import java.util.Set;
 
 public class User {
 
-	private Integer userid;
-	private String userName;
+	private Integer userId;
+	private String username;
 	private int accountId;
-	private Set<Trade> trades =new LinkedHashSet<Trade>();
-	public User(Integer userid, String userName, int accountId) {
-		super();
-		this.userid = userid;
-		this.userName = userName;
-		this.accountId = accountId;
-	}
-	public User() {
-		super();
-	}
-	public Integer getUserid() {
-		return userid;
-	}
-	public void setUserid(Integer userid) {
-		this.userid = userid;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public int getAccountId() {
-		return accountId;
-	}
-	public void setAccountId(int accountId) {
-		this.accountId = accountId;
-	}
-	public Set<Trade> getTrades() {
-		return trades;
-	}
+	 
+	private Set<Trade> trades = new LinkedHashSet<Trade>();
+
 	public void setTrades(Set<Trade> trades) {
 		this.trades = trades;
 	}
-	@Override
-	public String toString() {
-		return "User [userid=" + userid + ", userName=" + userName + ", accountId=" + accountId + "]";
+	
+	public Set<Trade> getTrades() {
+		return trades;
 	}
 	
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public Integer getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(Integer accountId) {
+		this.accountId = accountId;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", username=" + username
+				+ ", accountId=" + accountId + "]";
+	}
+
+	public User(Integer userId, String username, int accountId) {
+		super();
+		this.userId = userId;
+		this.username = username;
+		this.accountId = accountId;
+	}
+
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
 }

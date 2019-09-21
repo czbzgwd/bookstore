@@ -73,7 +73,7 @@ private ShoppingCart sc = new ShoppingCart();
 		Trade trade = new Trade();
 		//引入的是sql下的Date()
 		trade.setTradeTime(new Date(new java.util.Date().getTime()));
-		trade.setUserId(userDAO.getUser(username).getUserid());
+		trade.setUserId(userDAO.getUser(username).getUserId());
 		tradeDAO.insert(trade);
 		//4、向tradeitem中插入n条记录
 		Collection<TradeItem> items = new ArrayList<>();
