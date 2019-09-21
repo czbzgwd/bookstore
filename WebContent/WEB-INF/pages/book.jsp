@@ -19,8 +19,7 @@
 		<br> Price: ${book.price } <br>
 		<br> PublishingDate: ${book.publishingDate } <br>
 		<br> Remark: ${book.remark } <br>
-		<br> <a
-			href="bookServlet?method=getBooks&pageNo=${param.pageNo }">继续购物</a>
+		<br> <a href="bookServlet?method=getBooks&pageNo=${param.pageNo }">继续购物</a>
 
 
 	</center>

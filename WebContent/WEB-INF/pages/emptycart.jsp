@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ include file = "/commons/queryCondition.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,12 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+<center>
+<h2>您的购物车已清空</h2><br>
+<a href="index.jsp">继续购物</a>
 
-
-     数量：${sessionScope.ShoppingCart.bookNumber }<br>
-   <c:forEach items = "${sessionScope.ShoppingCart.items }" var = "item">
-    ${item.book.title } - ${item.book.price } - ${item.quantity }
-    <br>
-   </c:forEach>  
+</center>
 </body>
 </html>

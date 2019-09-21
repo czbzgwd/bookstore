@@ -55,6 +55,37 @@ public class BookServlet extends HttpServlet {
 		}
 
 	}
+	protected void remove(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		//获取书的id
+		String idStr = request.getParameter("id");
+		int id = -1;
+				
+		try {
+			id=	Integer.parseInt(idStr);
+		} catch (Exception e) {}
+		ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
+		bookService.removeItemFromShoppingCart(sc,id);
+		
+		if(sc.isEmpty()){
+			request.getRequestDispatcher("/WEB-INF/pages/emptycart.jsp").forward(request, response);
+		}
+		request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
+		
+	}
+	protected void toCartPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
+		
+	}
+	//清空购物车
+	protected void clear(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
+	    bookService.clearShoppingCart(sc);	
+        request.getRequestDispatcher("/WEB-INF/pages/emptycart.jsp").forward(request, response);
+	}
 	protected void addToCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//1、获取商品的id
