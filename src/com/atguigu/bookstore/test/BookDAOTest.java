@@ -1,16 +1,15 @@
 package com.atguigu.bookstore.test;
 
-import static org.junit.Assert.*;
-
-import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.Test;
 
 import com.atguigu.bookstore.dao.BookDAO;
 import com.atguigu.bookstore.dao.impl.BookDAOImpl;
-import com.atguigu.bookstore.db.JDBCUtils;
 import com.atguigu.bookstore.domain.Book;
+import com.atguigu.bookstore.domain.ShoppingCartItem;
 import com.atguigu.bookstore.web.CriteriaBook;
 import com.atguigu.bookstore.web.Page;
 
@@ -57,7 +56,28 @@ public class BookDAOTest {
 
 	@Test
 	public void testBatchUpdateStoreNumberAndSalesAmount() {
-		fail("Not yet implemented");
+		Collection<ShoppingCartItem> items = new ArrayList<>();
+		Book book = bookDAO.getBook(1);
+		ShoppingCartItem sci = new ShoppingCartItem(book);
+		sci.setQuantity(10);
+		items.add(sci);
+		
+		book = bookDAO.getBook(2);
+		sci = new ShoppingCartItem(book);
+		sci.setQuantity(11);
+		items.add(sci);
+		
+		book = bookDAO.getBook(3);
+		sci = new ShoppingCartItem(book);
+		sci.setQuantity(12);
+		items.add(sci);
+		
+		book = bookDAO.getBook(4);
+		sci = new ShoppingCartItem(book);
+		sci.setQuantity(14);
+		items.add(sci);
+		
+		bookDAO.batchUpdateStoreNumberAndSalesAmount(items);
 	}
 
 }
