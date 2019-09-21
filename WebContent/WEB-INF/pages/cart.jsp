@@ -116,7 +116,7 @@
          &nbsp;&nbsp;
          <a href= "bookServlet?method=clear">清空购物车</a>
          &nbsp;&nbsp;
-         <a href= "#">结账</a>
+         <a href= "bookServlet?method=ForwardPage&page=cash.jsp">结账</a>
          </td>
          </tr>
     </table>
