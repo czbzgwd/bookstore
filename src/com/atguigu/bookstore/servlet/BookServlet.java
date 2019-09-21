@@ -97,8 +97,9 @@ public class BookServlet extends HttpServlet {
 			return;
 		}
 
-		
-
+		//验证通过执行具体的逻辑操作
+		bookService.cash(BookStoreWebUtils.getShoppingCart(request),username,accountId);
+		response.sendRedirect(request.getContextPath() + "/success.jsp");
 	}
 
 	private AccountService accountService = new AccountService();
