@@ -1,18 +1,21 @@
 package com.atguigu.bookstore.domain;
 
 /**
- *2019年1月7日上午10:30:17
+ * 购物车中的商品以及该商品的数量
+ * 
+ * @author Administrator
  *
  */
+
 public class ShoppingCartItem {
 
 	private Book book;
 	private int quantity;
+	
 	public ShoppingCartItem(Book book) {
 		this.book = book;
 		this.quantity = 1;
 	}
-	
 	public Book getBook() {
 		return book;
 	}
@@ -20,22 +23,21 @@ public class ShoppingCartItem {
 	public int getQuantity() {
 		return quantity;
 	}
-	
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+
 	/**
-	 * 返回该商品在购物车中的钱数
-	 * @return
+	 * 返回该商品的总钱数
 	 */
-	public float getItemPrice(){
+	public float getItemMoney(){
 		return book.getPrice()*quantity;
 	}
-	/**
-	 * 使商品数量 + 1
+	
+	/*
+	 * 使商品数量加1
 	 */
 	public void increment(){
-		 quantity++;
+		quantity++;
 	}
-	
 }

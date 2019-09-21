@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.atguigu.bookstore.domain.Book;
+import com.atguigu.bookstore.domain.ShoppingCart;
 import com.atguigu.bookstore.service.BookService;
+import com.atguigu.bookstore.web.BookStoreWebUtils;
 import com.atguigu.bookstore.web.CriteriaBook;
 import com.atguigu.bookstore.web.Page;
 
@@ -53,7 +55,32 @@ public class BookServlet extends HttpServlet {
 		}
 
 	}
-	
+	protected void addToCart(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		//1、获取商品的id
+		String idStr = request.getParameter("id");
+		int id = -1;
+		boolean flag = false;
+		try {
+			id = Integer.parseInt(idStr);
+		} catch (NumberFormatException e) {}
+		
+		if(id > 0){
+			//2、获取购物车对象☆
+			ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
+			//3、调用BookService的addToCart方法把商品添加到购物车中
+			flag = bookService.addToCart(id,sc);
+		}
+		
+		if(flag){
+			//4、直接调用getBooks方法
+			getBooks(request,response);
+			return;
+		}
+		
+		response.sendRedirect(request.getContextPath() + "/error-1.jsp");
+		
+	}
     //获取书的详细信息
 	protected void getBook(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
